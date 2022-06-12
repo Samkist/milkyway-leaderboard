@@ -54,5 +54,5 @@ export const connect = async () => {
   const Combat = mongoose.models.Combat || mongoose.model("Combat", CombatSchema)
   const User = mongoose.models.User || mongoose.model("User", UserSchema)
 
-  return { conn, Combat, User }
+  return { conn, User, Combat, Mining }
 }

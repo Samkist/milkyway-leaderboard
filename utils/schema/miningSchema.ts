@@ -2,12 +2,12 @@ const mongoose = require('mongoose'), Schema = mongoose.Schema
 
 export const loadMining = () => {
   return Schema({
-    mined: {
+    blocksMined: {
       require: true,
       default: 0,
       type: Number
     },
-    placed: {
+    blocksPlaced: {
       require: true,
       default: 0,
       type: Number
@@ -27,8 +27,8 @@ export const loadMining = () => {
 
 export interface MiningSchema {
   id?: string
-  mined: number
-  placed: number
+  blocksMined: number
+  blocksPlaced: number
   experienceGained: number
   pickaxesBroken: number
 }
