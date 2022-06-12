@@ -61,7 +61,7 @@ interface Pve {
   experiencedGained: number
 }
 
-export interface Combat {
+export interface CombatSchema {
   id?: string
   pve: Pve
   pvp: Pvp

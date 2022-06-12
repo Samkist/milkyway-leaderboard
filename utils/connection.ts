@@ -1,7 +1,8 @@
 import 'reflect-metadata'
 import {Service} from "typedi";
+import {loadMining} from "./schema/miningSchema";
 const mongoose = require('mongoose'), Schema = mongoose.Schema, Model = mongoose.Model;
-const combat = require('utils/schema/combat'), loadCombat = combat.combatSchema
+const combat = require('utils/schema/combatSchema'), loadCombat = combat.combatSchema
 const { MONGODB_URI } = process.env
 
 @Service()
@@ -25,6 +26,8 @@ export const connect = async () => {
 
   })
 
+  const MiningSchema = loadMining()
+
   const CombatSchema = loadCombat()
 
   const UserSchema = new mongoose.Schema({
@@ -47,6 +50,7 @@ export const connect = async () => {
         }]
   })
 
+  const Mining = mongoose.models.Mining || mongoose.model("Mining", MiningSchema)
   const Combat = mongoose.models.Combat || mongoose.model("Combat", CombatSchema)
   const User = mongoose.models.User || mongoose.model("User", UserSchema)
 

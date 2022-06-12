@@ -1,5 +1,5 @@
 import {Schema} from "mongoose";
-import {Combat} from "./schema/combat";
+import {CombatSchema} from "./schema/combatSchema";
 
 export interface ResponseFunctions {
   GET?: Function
@@ -8,7 +8,7 @@ export interface ResponseFunctions {
   DELETE?: Function
 }
 
-export C
+export interface Combat extends CombatSchema {}
 
 export interface User {
   _id?: string // A UUID
