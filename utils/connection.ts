@@ -1,12 +1,10 @@
 import 'reflect-metadata'
-import {Service} from "typedi";
-import {loadMining} from "./schema/miningSchema";
+import {loadMining} from "./schema/miningFunctions";
+import {loadCombat} from "./schema/combatFunctions";
+import {loadUser} from "./schema/userSchema";
 const mongoose = require('mongoose'), Schema = mongoose.Schema, Model = mongoose.Model;
-const combat = require('utils/schema/combatSchema'), loadCombat = combat.combatSchema
 const { MONGODB_URI } = process.env
-
-@Service()
-class MongoSchema extends Schema {}
+let modelMap = new Map<string, typeof Schema>();
 
 export const connect = async () => {
   const conn = await mongoose
@@ -30,29 +28,15 @@ export const connect = async () => {
 
   const CombatSchema = loadCombat()
 
-  const UserSchema = new mongoose.Schema({
-    username: {
-      require: true,
-      type: String
-    },
-    firstLoggedIn: {
-      require: true,
-      default: new Date(Date.now()),
-      type: Date
-    },
-    lastLoggedIn: {
-      require: true,
-      default: new Date(Date.now()),
-      type: Date
-    },
-    combat: [{
-          type: Schema.Types.ObjectId, ref: 'Combat'
-        }]
-  })
+  const UserSchema = loadUser()
 
   const Mining = mongoose.models.Mining || mongoose.model("Mining", MiningSchema)
   const Combat = mongoose.models.Combat || mongoose.model("Combat", CombatSchema)
   const User = mongoose.models.User || mongoose.model("User", UserSchema)
 
-  return { conn, User, Combat, Mining }
+  mongoose.models.forEach((value: string, key: typeof Model) => {
+    modelMap.set(value, key)
+  })
+
+  return { conn, modelMap }
 }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'), Schema = mongoose.Schema
 
-export const combatSchema = () => {
+export const loadCombat = () => {
   const PvpSchema = Schema({
     kills: {
       require: true,
@@ -61,7 +61,7 @@ interface Pve {
   experiencedGained: number
 }
 
-export interface CombatSchema {
+export interface CombatFunctions {
   id?: string
   pve: Pve
   pvp: Pvp

@@ -1,6 +1,7 @@
 import {Schema} from "mongoose";
-import {CombatSchema} from "./schema/combatSchema";
-import {MiningSchema} from "./schema/miningSchema";
+import {CombatFunctions} from "./schema/combatFunctions";
+import {MiningFunctions} from "./schema/miningFunctions";
+import {UserFunctions} from "./schema/userSchema";
 
 export interface ResponseFunctions {
   GET?: Function
@@ -9,14 +10,8 @@ export interface ResponseFunctions {
   DELETE?: Function
 }
 
-export interface Mining extends MiningSchema {}
+export interface Mining extends MiningFunctions {}
 
-export interface Combat extends CombatSchema {}
+export interface Combat extends CombatFunctions {}
 
-export interface User {
-  _id?: string // A UUID
-  username: string
-  firstLoggedIn: Date
-  lastLoggedIn: Date
-  combat: { type: Schema.Types.ObjectId, ref: 'Combat' }
-}
+export interface User extends UserFunctions {}

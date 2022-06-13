@@ -25,7 +25,7 @@ export const loadMining = () => {
   })
 }
 
-export interface MiningSchema {
+export interface MiningFunctions {
   id?: string
   blocksMined: number
   blocksPlaced: number
