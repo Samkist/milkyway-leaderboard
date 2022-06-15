@@ -2,6 +2,10 @@ const mongoose = require('mongoose'), Schema = mongoose.Schema
 
 export const loadCombat = () => {
   const PvpSchema = Schema({
+    _id: {
+      require: true,
+      type: String
+    },
     kills: {
       require: true,
       default: 0,

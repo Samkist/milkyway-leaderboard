@@ -2,6 +2,10 @@ const mongoose = require('mongoose'), Schema = mongoose.Schema
 
 export const loadMining = () => {
   return Schema({
+    _id: {
+      require: true,
+      type: String
+    },
     blocksMined: {
       require: true,
       default: 0,
