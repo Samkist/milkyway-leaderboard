@@ -7,8 +7,10 @@ const { MONGODB_URI } = process.env
 let modelMap = new Map<string, typeof Schema>();
 
 function addModel(key: string, schema: typeof Schema) {
-  const model = mongoose.models[key] || mongoose.model(key, schema)
-  modelMap.set(key, model)
+  if(!modelMap.get(key)) {
+    const model = mongoose.models[key] || mongoose.model(key, schema)
+    modelMap.set(key, model)
+  }
 }
 
 export const connect = async () => {
@@ -29,3 +31,5 @@ export const connect = async () => {
 
   return { conn, modelMap }
 }
+
+export default modelMap

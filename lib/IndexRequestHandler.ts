@@ -11,17 +11,17 @@ export class IndexRequestHandler extends RequestHandler {
 
   constructor(modelName: string) {
     super(modelName)
-    this.handler = async (req: NextApiRequest, res: NextApiResponse) => {
-      const method: keyof ResponseFunctions = req.method as keyof ResponseFunctions
+    this.handler = async (request: NextApiRequest, response: NextApiResponse) => {
+      const method: keyof ResponseFunctions = request.method as keyof ResponseFunctions
 
       const catcher = (error: Error) => {
-        return res.status(400).json({error})
+        return response.status(400).json({error})
       }
 
       const handleCase: ResponseFunctions = {
         GET: async (req: NextApiRequest, res: NextApiResponse) => {
           const {modelMap} = await connect() // connect to database
-          return res.json(await modelMap.get(modelName).find({}).catch(catcher))
+          return res.json(await modelMap.get(modelName).find().catch(catcher))
         },
         POST: async (req: NextApiRequest, res: NextApiResponse) => {
           const {modelMap} = await connect() // connect to database
@@ -30,9 +30,10 @@ export class IndexRequestHandler extends RequestHandler {
       }
 
       // Check if there is a response for the particular method, if so invoke it, if not response with an error
-      const response = handleCase[method]
-      if (response) return response(req, res)
-      else return res.status(400).json({error: "No Response for This Request"})
+      const responseMethod = handleCase[method]
+      return responseMethod ?
+          responseMethod(request, response) :
+          response.status(400).json({error: "No Response for This Request"})
     }
   }
 }

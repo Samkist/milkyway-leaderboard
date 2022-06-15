@@ -2,6 +2,10 @@ import {Schema} from "mongoose";
 
 export const loadUser = () => {
   return new Schema({
+    _id: {
+      require: true,
+      type: String
+    },
     username: {
       require: true,
       type: String
@@ -23,7 +27,7 @@ export const loadUser = () => {
 }
 
 export interface UserFunctions {
-  _id?: string // A UUID
+  _id: string // A UUID
   username: string
   firstLoggedIn: Date
   lastLoggedIn: Date

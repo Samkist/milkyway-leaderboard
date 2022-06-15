@@ -2,8 +2,12 @@ import 'reflect-metadata'
 import {UserProps} from "../lib/props/statProps";
 import Link from "next/link";
 
+
+
 function Index(props: UserProps) {
   const { users } = props
+
+  console.log(users)
 
   return (
       <div>
