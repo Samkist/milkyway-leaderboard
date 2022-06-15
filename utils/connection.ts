@@ -1,28 +1,20 @@
 import 'reflect-metadata'
-import {loadMining} from "./schema/miningFunctions";
-import {loadCombat} from "./schema/combatFunctions";
-import {loadUser} from "./schema/userSchema";
+import {loadMining} from "../lib/schema/miningFunctions";
+import {loadCombat} from "../lib/schema/combatFunctions";
+import {loadUser} from "../lib/schema/userSchema";
 const mongoose = require('mongoose'), Schema = mongoose.Schema, Model = mongoose.Model;
 const { MONGODB_URI } = process.env
 let modelMap = new Map<string, typeof Schema>();
+
+function addModel(key: string, schema: typeof Schema) {
+  const model = mongoose.models[key] || mongoose.model(key, schema)
+  modelMap.set(key, model)
+}
 
 export const connect = async () => {
   const conn = await mongoose
     .connect(MONGODB_URI as string)
     .catch(err => console.log(err))
-  console.log("MongoDB successfully connected")
-
-  const FarmingSchema = Schema({
-
-  })
-
-  const CookingSchema = Schema({
-
-  })
-
-  const TamingSchema = Schema({
-
-  })
 
   const MiningSchema = loadMining()
 
@@ -30,13 +22,10 @@ export const connect = async () => {
 
   const UserSchema = loadUser()
 
-  const Mining = mongoose.models.Mining || mongoose.model("Mining", MiningSchema)
-  const Combat = mongoose.models.Combat || mongoose.model("Combat", CombatSchema)
-  const User = mongoose.models.User || mongoose.model("User", UserSchema)
+  addModel("Mining", MiningSchema)
+  addModel("Combat", CombatSchema)
+  addModel("User", UserSchema)
 
-  mongoose.models.forEach((value: string, key: typeof Model) => {
-    modelMap.set(value, key)
-  })
 
   return { conn, modelMap }
 }

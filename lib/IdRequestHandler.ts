@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {ResponseFunctions} from "../utils/types";const mongoose = require('mongoose'), Model = mongoose.Model;
+import {ResponseFunctions} from "./types";const mongoose = require('mongoose'), Model = mongoose.Model;
 import {RequestHandler} from "./RequestHandler";
 
 type handlerFunction = (req: NextApiRequest, res: NextApiResponse) => Promise<boolean>;

@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {ResponseFunctions} from "../utils/types";
+import {ResponseFunctions} from "./types";
 import {connect} from "../utils/connection";
 import {RequestHandler} from "./RequestHandler";
 const mongoose = require('mongoose'), Model = mongoose.Model;
@@ -15,8 +15,7 @@ export class IndexRequestHandler extends RequestHandler {
       const method: keyof ResponseFunctions = req.method as keyof ResponseFunctions
 
       const catcher = (error: Error) => {
-        res.status(400).json({error})
-        return false;
+        return res.status(400).json({error})
       }
 
       const handleCase: ResponseFunctions = {
@@ -32,9 +31,8 @@ export class IndexRequestHandler extends RequestHandler {
 
       // Check if there is a response for the particular method, if so invoke it, if not response with an error
       const response = handleCase[method]
-      if (response) response(req, res)
-      else res.status(400).json({error: "No Response for This Request"})
-      return true;
+      if (response) return response(req, res)
+      else return res.status(400).json({error: "No Response for This Request"})
     }
   }
 }
