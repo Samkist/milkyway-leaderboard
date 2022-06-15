@@ -21,11 +21,11 @@ export class IndexRequestHandler extends RequestHandler {
       const handleCase: ResponseFunctions = {
         GET: async (req: NextApiRequest, res: NextApiResponse) => {
           const {modelMap} = await connect() // connect to database
-          res.json(await modelMap.get(modelName).find({}).catch(catcher))
+          return res.json(await modelMap.get(modelName).find({}).catch(catcher))
         },
         POST: async (req: NextApiRequest, res: NextApiResponse) => {
           const {modelMap} = await connect() // connect to database
-          res.json(await modelMap.get(modelName).create(req.body).catch(catcher))
+          return res.json(await modelMap.get(modelName).create(req.body).catch(catcher))
         },
       }
 
