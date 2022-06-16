@@ -1,16 +1,13 @@
 import 'reflect-metadata'
-import {UserProps} from "../lib/props/statProps";
+import {UserProps} from "../props/statProps";
 import Link from "next/link";
 
 
 
 function Index(props: UserProps) {
   const { users } = props
-
-  console.log(users)
-
   return (
-      <div>
+      <div className="space-y-4">
         <h1>Leaderboard Users</h1>
         <h2>Click on a user to view them</h2>
 

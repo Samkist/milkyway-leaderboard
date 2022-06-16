@@ -1,6 +1,6 @@
-import {Mining} from "../types";
-import {Combat} from "../types";
-import {User} from "../types";
+import {Mining} from "../lib/types";
+import {Combat} from "../lib/types";
+import {User} from "../lib/types";
 import React from "react";
 
 

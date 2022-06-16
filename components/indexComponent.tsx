@@ -12,7 +12,7 @@ function Index(props: UserProps) {
         <h2>Click on a user to view them</h2>
 
         {users.map(user => (
-          <div key={user._id}>
+          <div key={user._id} className="w-96 bg-white shadow rounded">
             <Link href={`/user/${user._id}`}>
               <h3 style={{cursor: "pointer"}}>
                 {user._id} - {user.username}

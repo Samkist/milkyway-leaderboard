@@ -1,7 +1,7 @@
 import 'reflect-metadata'
-import {loadMining} from "../lib/schema/miningFunctions";
-import {loadCombat} from "../lib/schema/combatFunctions";
-import {loadUser} from "../lib/schema/userSchema";
+import {loadMining} from "../schema/miningFunctions";
+import {loadCombat} from "../schema/combatFunctions";
+import {loadUser} from "../schema/userSchema";
 const mongoose = require('mongoose'), Schema = mongoose.Schema, Model = mongoose.Model;
 const { MONGODB_URI } = process.env
 let modelMap = new Map<string, typeof Schema>();
